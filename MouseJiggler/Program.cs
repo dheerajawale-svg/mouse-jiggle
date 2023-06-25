@@ -15,24 +15,27 @@ using System.CommandLine.Parsing;
 using System.Threading;
 using System.Windows.Forms;
 
-using ArkaneSystems.MouseJiggler.Properties;
+using Dj.MouseJiggler.Properties;
 
 using JetBrains.Annotations;
-
+using Microsoft.Win32;
 using PInvoke;
 
 #endregion
 
-namespace ArkaneSystems.MouseJiggler
+namespace Dj.MouseJiggler
 {
     [PublicAPI]
     public static class Program
     {
+        private const string AppName = "MouseJiggler";
+        private const string RegKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        public static int Main (string[] args)
+        public static int Main(string[] args)
         {
             // Attach to the parent process's console so we can display help, version information, and command-line errors.
             Kernel32.AttachConsole (dwProcessId: Helpers.AttachParentProcess);
@@ -42,29 +45,36 @@ namespace ArkaneSystems.MouseJiggler
 
             try
             {
-                if (instance.WaitOne (millisecondsTimeout: 0))
-
-                    // Parse arguments and do the appropriate thing.
+                if (instance.WaitOne (millisecondsTimeout: 0)) // Parse arguments and do the appropriate thing.
                 {
+#if !DEBUG
+                    SetStartup();
+#endif
                     return Program.GetCommandLineParser ().Invoke (args: args);
                 }
                 else
                 {
-                    Console.WriteLine (value: "Mouse Jiggler is already running. Aborting.");
+                    Console.WriteLine(value: "Mouse Jiggler is already running. Aborting.");
 
                     return 1;
-                }
+                }                
             }
             finally
             {
-                instance.Close ();
+                instance.Close();
 
                 // Detach from the parent console.
-                Kernel32.FreeConsole ();
+                Kernel32.FreeConsole();
             }
         }
 
-        private static int RootHandler (bool jiggle, bool minimized, bool zen, int seconds)
+        private static void SetStartup()
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey(RegKey, true);            
+            rk.SetValue(AppName, Application.ExecutablePath);
+        }
+
+        private static int RootHandler(bool jiggle, bool minimized, bool zen, int seconds)
         {
             // Prepare Windows Forms to run the application.
             Application.SetHighDpiMode (highDpiMode: HighDpiMode.SystemAware);
@@ -82,7 +92,7 @@ namespace ArkaneSystems.MouseJiggler
             return 0;
         }
 
-        private static RootCommand GetCommandLineParser ()
+        private static RootCommand GetCommandLineParser()
         {
             // Create root command.
             var rootCommand = new RootCommand

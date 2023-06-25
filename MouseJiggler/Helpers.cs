@@ -16,7 +16,7 @@ using PInvoke;
 
 #endregion
 
-namespace ArkaneSystems.MouseJiggler
+namespace Dj.MouseJiggler
 {
     internal static class Helpers
     {

@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 
 #endregion
 
-namespace ArkaneSystems.MouseJiggler
+namespace Dj.MouseJiggler
 {
     public static class WinApi
     {

@@ -13,11 +13,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
-using ArkaneSystems.MouseJiggler.Properties;
+using Dj.MouseJiggler.Properties;
 
 #endregion
 
-namespace ArkaneSystems.MouseJiggler
+namespace Dj.MouseJiggler
 {
     public partial class MainForm : Form
     {

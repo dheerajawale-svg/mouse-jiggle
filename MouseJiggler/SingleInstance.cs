@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace ArkaneSystems.MouseJiggler
+namespace Dj.MouseJiggler
 {
     public static class SingleInstance
     {
