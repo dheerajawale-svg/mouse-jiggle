@@ -9,6 +9,8 @@
 #region using
 
 using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 using ArkaneSystems.MouseJiggler.Properties;
@@ -39,6 +41,10 @@ namespace ArkaneSystems.MouseJiggler
             //this.cbMinimize.Checked = minimizeOnStartup;
             this.cbZen.Checked = zenJiggleEnabled;
             this.tbPeriod.Value = jigglePeriod;
+
+            Rectangle workingArea = Screen.GetWorkingArea(this);
+            this.Location = new Point(workingArea.Left,
+                                      workingArea.Bottom - Size.Height);
         }
 
         public bool JiggleOnStartup { get; }
@@ -47,6 +53,11 @@ namespace ArkaneSystems.MouseJiggler
         {
             if (this.JiggleOnStartup)
                 this.cbJiggling.Checked = true;
+
+            if (!Settings.Default.Location.IsEmpty)
+                Location = Settings.Default.Location;
+
+            Activated += MainForm_Activated;
         }
 
         private void UpdateNotificationAreaText()
@@ -207,5 +218,69 @@ namespace ArkaneSystems.MouseJiggler
         }
 
         #endregion
+
+        #region My Code
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (WindowState == FormWindowState.Maximized)
+            {
+                Settings.Default.Location = RestoreBounds.Location;
+                Settings.Default.Size = RestoreBounds.Size;
+                Settings.Default.Maximised = true;
+                Settings.Default.Minimised = false;
+            }
+            else if (WindowState == FormWindowState.Normal)
+            {
+                Settings.Default.Location = Location;
+                Settings.Default.Size = Size;
+                Settings.Default.Maximised = false;
+                Settings.Default.Minimised = false;
+            }
+            else
+            {
+                Settings.Default.Location = RestoreBounds.Location;
+                Settings.Default.Size = RestoreBounds.Size;
+                Settings.Default.Maximised = false;
+                Settings.Default.Minimised = true;
+            }
+
+            Settings.Default.Save();
+        }
+
+        public bool JustReActivate { get; set; }
+
+        private void MainForm_Activated(object? sender, EventArgs e)
+        {
+            Debug.WriteLine("Activated");
+        }
+
+        protected override void WndProc(ref Message message)
+        {
+            if (message.Msg == SingleInstance.WM_SHOWFIRSTINSTANCE)
+            {
+                ShowWindow();
+            }
+
+            base.WndProc(ref message);
+        }
+
+        public void ShowWindow()
+        {
+            if (!ShowInTaskbar)
+            {
+                this.ActivateMdiChild(this);
+                Activate();
+                RestoreFromTray();
+            }
+            else
+            {
+                // Insert code here to make your form show itself.
+                WinApi.ShowToFront(Handle);
+            }
+        }
+
+        #endregion
     }
+
 }

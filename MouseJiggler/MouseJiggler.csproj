@@ -5,7 +5,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>ArkaneSystems.MouseJiggler</RootNamespace>
-    <Nullable>enable</Nullable>
     <ApplicationIcon>Mouse (ISO).ico</ApplicationIcon>
     <Version>2.0.14</Version>
     <PublishSingleFile>true</PublishSingleFile>

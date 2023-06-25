@@ -184,6 +184,7 @@ namespace ArkaneSystems.MouseJiggler
             MinimizeBox = false;
             Name = "MainForm";
             Text = "Mouse Jiggler";
+            FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             Shown += MainForm_Shown;
             flpLayout.ResumeLayout(false);
