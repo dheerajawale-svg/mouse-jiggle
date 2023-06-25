@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="2D6444F6-78C8-4696-8286-A57D1EE611D0" Name="Installer" Language="1033" 
+			 Version="1.0.0.0" Manufacturer="Dheeraj" UpgradeCode="57824fa3-b695-421c-b595-05c9202bb0c1">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of MouseJiggler is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="Installer" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="Installer" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			 <Component Id="ProductComponent"> 
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+				 <File Source="$(var.MouseJiggler.TargetPath)" />
+			 </Component> 
+		</ComponentGroup>
+	</Fragment>
+</Wix>
