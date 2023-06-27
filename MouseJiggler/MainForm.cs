@@ -33,7 +33,7 @@ namespace Dj.MouseJiggler
             this.InitializeComponent();
 
             // Jiggling on startup?
-            this.JiggleOnStartup = jiggleOnStartup;
+            JiggleOnStartup = jiggleOnStartup;
 
             // Set settings properties
             // We do this by setting the controls, and letting them set the properties.
@@ -51,7 +51,7 @@ namespace Dj.MouseJiggler
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (this.JiggleOnStartup)
+            if (JiggleOnStartup)
                 this.cbJiggling.Checked = true;
 
             if (!Settings.Default.Location.IsEmpty)
@@ -135,6 +135,7 @@ namespace Dj.MouseJiggler
         private void niTray_DoubleClick(object sender, EventArgs e)
         {
             this.RestoreFromTray();
+            cbJiggling.Focus();
         }
 
         private void MinimizeToTray()
@@ -148,9 +149,9 @@ namespace Dj.MouseJiggler
 
         private void RestoreFromTray()
         {
-            this.Visible = true;
-            this.ShowInTaskbar = true;
-            this.niTray.Visible = false;
+            Visible = true;
+            ShowInTaskbar = true;
+            niTray.Visible = false;
         }
 
         #endregion Minimize and restore

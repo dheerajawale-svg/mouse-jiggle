@@ -25,7 +25,6 @@ using PInvoke;
 
 namespace Dj.MouseJiggler
 {
-    [PublicAPI]
     public static class Program
     {
         private const string AppName = "MouseJiggler";
