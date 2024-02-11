@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="2D6444F6-78C8-4696-8286-A57D1EE611D0" Name="Installer" Language="1033" 
+	<Product Id="2D6444F6-78C8-4696-8286-A57D1EE611D0" Name="MouseJiggler" Language="1033" 
 			 Version="1.0.0.0" Manufacturer="Dheeraj" UpgradeCode="57824fa3-b695-421c-b595-05c9202bb0c1">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of MouseJiggler is already installed." />
 		<MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="ProductFeature" Title="Installer" Level="1">
+		<Feature Id="ProductFeature" Title="MouseJiggler" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
 	</Product>
@@ -15,7 +15,7 @@
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="Installer" />
+				<Directory Id="INSTALLFOLDER" Name="MouseJiggler" />
 			</Directory>
 		</Directory>
 	</Fragment>

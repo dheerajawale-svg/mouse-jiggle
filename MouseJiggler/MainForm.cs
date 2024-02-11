@@ -58,6 +58,9 @@ namespace Dj.MouseJiggler
                 Location = Settings.Default.Location;
 
             Activated += MainForm_Activated;
+
+            niTray.ContextMenuStrip = new ContextMenuStrip();
+            niTray.ContextMenuStrip.Items.Add("Toggle", null, HandleTrayToggle);
         }
 
         private void UpdateNotificationAreaText()
@@ -108,6 +111,12 @@ namespace Dj.MouseJiggler
 
         private void cbJiggling_CheckedChanged(object sender, EventArgs e)
         {
+            if(_backEndAcivity)
+            {
+                _backEndAcivity = false;
+                return;
+            }
+
             this.jiggleTimer.Enabled = this.cbJiggling.Checked;
         }
 
@@ -222,6 +231,8 @@ namespace Dj.MouseJiggler
 
         #region My Code
 
+        private bool _backEndAcivity;
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (WindowState == FormWindowState.Maximized)
@@ -254,6 +265,13 @@ namespace Dj.MouseJiggler
         private void MainForm_Activated(object? sender, EventArgs e)
         {
             Debug.WriteLine("Activated");
+        }
+
+        private void HandleTrayToggle(object sender, EventArgs e)
+        {
+            _backEndAcivity = true;
+            cbJiggling.Checked = !cbJiggling.Checked;
+            jiggleTimer.Enabled = !jiggleTimer.Enabled;
         }
 
         protected override void WndProc(ref Message message)

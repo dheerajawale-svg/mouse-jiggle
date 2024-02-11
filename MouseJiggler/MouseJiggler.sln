@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "..\Installer\Installer.wixproj", "{902D981B-9C8E-44F0-8587-01BD2EC3F324}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MouseJiggleSetup", "..\MouseJiggleSetup\MouseJiggleSetup.vdproj", "{E71DA39D-5ECB-466E-9429-9F89A19BF2BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,14 +28,10 @@ Global
 		{C5CC87B3-C8D5-474B-A97A-2B6B1316FD5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C5CC87B3-C8D5-474B-A97A-2B6B1316FD5B}.Release|x86.ActiveCfg = Release|Any CPU
 		{C5CC87B3-C8D5-474B-A97A-2B6B1316FD5B}.Release|x86.Build.0 = Release|Any CPU
-		{902D981B-9C8E-44F0-8587-01BD2EC3F324}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{902D981B-9C8E-44F0-8587-01BD2EC3F324}.Debug|Any CPU.Build.0 = Debug|x86
-		{902D981B-9C8E-44F0-8587-01BD2EC3F324}.Debug|x86.ActiveCfg = Debug|x86
-		{902D981B-9C8E-44F0-8587-01BD2EC3F324}.Debug|x86.Build.0 = Debug|x86
-		{902D981B-9C8E-44F0-8587-01BD2EC3F324}.Release|Any CPU.ActiveCfg = Release|x86
-		{902D981B-9C8E-44F0-8587-01BD2EC3F324}.Release|Any CPU.Build.0 = Release|x86
-		{902D981B-9C8E-44F0-8587-01BD2EC3F324}.Release|x86.ActiveCfg = Release|x86
-		{902D981B-9C8E-44F0-8587-01BD2EC3F324}.Release|x86.Build.0 = Release|x86
+		{E71DA39D-5ECB-466E-9429-9F89A19BF2BA}.Debug|Any CPU.ActiveCfg = Debug
+		{E71DA39D-5ECB-466E-9429-9F89A19BF2BA}.Debug|x86.ActiveCfg = Debug
+		{E71DA39D-5ECB-466E-9429-9F89A19BF2BA}.Release|Any CPU.ActiveCfg = Release
+		{E71DA39D-5ECB-466E-9429-9F89A19BF2BA}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
