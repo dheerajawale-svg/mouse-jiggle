@@ -1,7 +1,7 @@
 #region header
 
 // MouseJiggler - Program.cs
-// 
+//
 // Created by: Alistair J R Young (avatar) at 2021/01/22 4:12 PM.
 
 #endregion
@@ -56,7 +56,7 @@ namespace Dj.MouseJiggler
                     Console.WriteLine(value: "Mouse Jiggler is already running. Aborting.");
 
                     return 1;
-                }                
+                }
             }
             finally
             {
@@ -69,7 +69,7 @@ namespace Dj.MouseJiggler
 
         private static void SetStartup()
         {
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey(RegKey, true);            
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey(RegKey, true);
             rk.SetValue(AppName, Application.ExecutablePath);
         }
 

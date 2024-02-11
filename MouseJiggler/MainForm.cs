@@ -1,7 +1,7 @@
 ﻿#region header
 
 // MouseJiggler - MainForm.cs
-// 
+//
 // Created by: Alistair J R Young (avatar) at 2021/01/24 1:57 AM.
 
 #endregion
@@ -61,6 +61,11 @@ namespace Dj.MouseJiggler
 
             niTray.ContextMenuStrip = new ContextMenuStrip();
             niTray.ContextMenuStrip.Items.Add("Toggle", null, HandleTrayToggle);
+            niTray.ContextMenuStrip.Items.Add("Exit", null, (sender, ev) =>
+            {
+                this.Close();
+                Application.Exit();
+            });
         }
 
         private void UpdateNotificationAreaText()
