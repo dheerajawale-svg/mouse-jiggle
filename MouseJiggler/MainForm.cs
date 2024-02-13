@@ -81,11 +81,6 @@ namespace Dj.MouseJiggler
             }
         }
 
-        private void cmdAbout_Click(object sender, EventArgs e)
-        {
-            new AboutBox().ShowDialog(owner: this);
-        }
-
         #region Property synchronization
 
         private void cbSettings_CheckedChanged(object sender, EventArgs e)
@@ -116,7 +111,7 @@ namespace Dj.MouseJiggler
 
         private void cbJiggling_CheckedChanged(object sender, EventArgs e)
         {
-            if(_backEndAcivity)
+            if (_backEndAcivity)
             {
                 _backEndAcivity = false;
                 return;
@@ -135,6 +130,24 @@ namespace Dj.MouseJiggler
                 Helpers.Jiggle(delta: -4);
 
             this.Zig = !this.Zig;
+        }
+
+        private void inactivityTimer_Tick(object sender, EventArgs e)
+        {
+            var inactiveTime = InactivityTimeDetector.GetInactiveTime();
+
+            var compareTo = TimeSpan.FromMinutes(4);
+            if (inactiveTime >= compareTo)
+            {
+                if (this.ZenJiggleEnabled)
+                    Helpers.Jiggle(delta: 0);
+                else if (this.Zig)
+                    Helpers.Jiggle(delta: 4);
+                else //zag
+                    Helpers.Jiggle(delta: -4);
+
+                this.Zig = !this.Zig;
+            }
         }
 
         #endregion Do the Jiggle!
@@ -305,6 +318,7 @@ namespace Dj.MouseJiggler
         }
 
         #endregion
+
     }
 
 }
