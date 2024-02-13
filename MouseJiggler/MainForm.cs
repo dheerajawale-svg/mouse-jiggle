@@ -25,7 +25,7 @@ namespace Dj.MouseJiggler
         ///     Constructor for use by the form designer.
         /// </summary>
         public MainForm()
-            : this(jiggleOnStartup: false, minimizeOnStartup: false, zenJiggleEnabled: false, jigglePeriod: 1)
+            : this(jiggleOnStartup: false, minimizeOnStartup: false, zenJiggleEnabled: false, jigglePeriod: 30)
         { }
 
         public MainForm(bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, int jigglePeriod)
@@ -107,6 +107,7 @@ namespace Dj.MouseJiggler
 
         #region Do the Jiggle!
 
+        //Zig-Zag for flipping the cursor up-down.
         protected bool Zig = true;
 
         private void cbJiggling_CheckedChanged(object sender, EventArgs e)
@@ -117,26 +118,14 @@ namespace Dj.MouseJiggler
                 return;
             }
 
-            this.jiggleTimer.Enabled = this.cbJiggling.Checked;
-        }
-
-        private void jiggleTimer_Tick(object sender, EventArgs e)
-        {
-            if (this.ZenJiggleEnabled)
-                Helpers.Jiggle(delta: 0);
-            else if (this.Zig)
-                Helpers.Jiggle(delta: 4);
-            else //zag
-                Helpers.Jiggle(delta: -4);
-
-            this.Zig = !this.Zig;
+            this.inactivityTimer.Enabled = this.cbJiggling.Checked;
         }
 
         private void inactivityTimer_Tick(object sender, EventArgs e)
         {
             var inactiveTime = InactivityTimeDetector.GetInactiveTime();
 
-            var compareTo = TimeSpan.FromMinutes(4);
+            var compareTo = TimeSpan.FromMinutes(Settings.Default.InActivityPeriod);
             if (inactiveTime >= compareTo)
             {
                 if (this.ZenJiggleEnabled)
@@ -226,7 +215,7 @@ namespace Dj.MouseJiggler
                 Settings.Default.JigglePeriod = value;
                 Settings.Default.Save();
 
-                this.jiggleTimer.Interval = value * 1000;
+                this.inactivityTimer.Interval = value * 1000;
                 this.lbPeriod.Text = $"{value} s";
             }
         }
@@ -289,7 +278,7 @@ namespace Dj.MouseJiggler
         {
             _backEndAcivity = true;
             cbJiggling.Checked = !cbJiggling.Checked;
-            jiggleTimer.Enabled = !jiggleTimer.Enabled;
+            inactivityTimer.Enabled = !inactivityTimer.Enabled;
         }
 
         protected override void WndProc(ref Message message)

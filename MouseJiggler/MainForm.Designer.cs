@@ -31,7 +31,6 @@ namespace Dj.MouseJiggler
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            jiggleTimer = new System.Windows.Forms.Timer(components);
             flpLayout = new System.Windows.Forms.FlowLayoutPanel();
             panelBase = new System.Windows.Forms.Panel();
             cmdTrayify = new System.Windows.Forms.Button();
@@ -48,11 +47,6 @@ namespace Dj.MouseJiggler
             panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tbPeriod).BeginInit();
             SuspendLayout();
-            // 
-            // jiggleTimer
-            // 
-            jiggleTimer.Interval = 1000;
-            jiggleTimer.Tick += jiggleTimer_Tick;
             // 
             // flpLayout
             // 
@@ -134,9 +128,9 @@ namespace Dj.MouseJiggler
             lbPeriod.Location = new System.Drawing.Point(349, 68);
             lbPeriod.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbPeriod.Name = "lbPeriod";
-            lbPeriod.Size = new System.Drawing.Size(35, 25);
+            lbPeriod.Size = new System.Drawing.Size(45, 25);
             lbPeriod.TabIndex = 3;
-            lbPeriod.Text = "1 s";
+            lbPeriod.Text = "30 s";
             // 
             // tbPeriod
             // 
@@ -149,7 +143,7 @@ namespace Dj.MouseJiggler
             tbPeriod.Size = new System.Drawing.Size(401, 69);
             tbPeriod.TabIndex = 6;
             tbPeriod.TickFrequency = 2;
-            tbPeriod.Value = 1;
+            tbPeriod.Value = 30;
             tbPeriod.ValueChanged += tbPeriod_ValueChanged;
             // 
             // cbZen
@@ -205,8 +199,6 @@ namespace Dj.MouseJiggler
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer jiggleTimer;
         private System.Windows.Forms.FlowLayoutPanel flpLayout;
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.TrackBar tbPeriod;
