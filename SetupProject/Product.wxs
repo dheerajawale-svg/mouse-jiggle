@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define MouseJiggler_TargetDir=$(var.MouseJiggler.TargetDir)?>
+	<Product Id="*"
+           Name="MouseJiggler"
+           Language="1033"
+           Version="1.0.0.0"
+           Manufacturer="Dheeraj"
+           UpgradeCode="d2466d2e-f73f-4261-b9ec-a0daed879936">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <UI>
+      <UIRef Id="WixUI_Minimal" />
+      <Publish Dialog="ExitDialog"
+               Control="Finish"
+               Event="DoAction"
+               Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch MouseJiggle" />
+    <Property Id="WixShellExecTarget" Value="[#MouseJiggle.exe]" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+
+    <Icon Id="icon.ico" SourceFile="$(var.MouseJiggler.ProjectDir)\mousecomputer.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of MouseJiggle is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="MouseJiggler" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="$(var.MouseJiggler.TargetName)" />
+			</Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			 <Component Id="ProductComponent">
+         <File Id="MouseJigglerEXE"
+					   Name="MouseJiggler.exe"
+					   DiskId="1"
+					   Source="$(var.MouseJiggler.TargetDir)\$(var.MouseJiggler.TargetFileName)"
+					   Vital="yes"
+					   KeyPath="yes" />
+			 </Component>
+			<Component Id="MouseJiggler.runtimeconfig.json" Guid="560419a5-c618-4ad6-9e4c-6d0caeb95109">
+			  <File Id="MouseJiggler.runtimeconfig.json" Name="MouseJiggler.runtimeconfig.json" Source="$(var.MouseJiggler_TargetDir)MouseJiggler.runtimeconfig.json" />
+			</Component>
+			<Component Id="MouseJiggler.dll" Guid="1785b146-68b6-4cea-9d3e-443e8fe6f272">
+			  <File Id="MouseJiggler.dll" Name="MouseJiggler.dll" Source="$(var.MouseJiggler_TargetDir)MouseJiggler.dll" />
+			</Component>
+			<Component Id="MouseJiggler.dll.config" Guid="b4284f90-ced3-47e8-8499-3c8b723c00af">
+			  <File Id="MouseJiggler.dll.config" Name="MouseJiggler.dll.config" Source="$(var.MouseJiggler_TargetDir)MouseJiggler.dll.config" />
+			</Component>
+			<Component Id="PInvoke.User32.dll" Guid="fd8e784f-2828-450e-99f6-da51fe500a8d">
+			  <File Id="PInvoke.User32.dll" Name="PInvoke.User32.dll" Source="$(var.MouseJiggler_TargetDir)PInvoke.User32.dll" />
+			</Component>
+			<Component Id="System.CommandLine.dll" Guid="c0bdb9b2-924d-4bc3-ae91-00569948024d">
+			  <File Id="System.CommandLine.dll" Name="System.CommandLine.dll" Source="$(var.MouseJiggler_TargetDir)System.CommandLine.dll" />
+			</Component>
+			<Component Id="PInvoke.Kernel32.dll" Guid="d0ce3919-0430-49c2-8f81-e10ef02e0eb3">
+			  <File Id="PInvoke.Kernel32.dll" Name="PInvoke.Kernel32.dll" Source="$(var.MouseJiggler_TargetDir)PInvoke.Kernel32.dll" />
+			</Component>
+			<Component Id="PInvoke.Windows.Core.dll" Guid="7a2bfcbf-996e-447e-ab95-0dbf955946e4">
+			  <File Id="PInvoke.Windows.Core.dll" Name="PInvoke.Windows.Core.dll" Source="$(var.MouseJiggler_TargetDir)PInvoke.Windows.Core.dll" />
+			</Component>
+			<Component Id="Validation.dll" Guid="c0a7f942-c1d0-4c45-931e-974f333c3e17">
+			  <File Id="Validation.dll" Name="Validation.dll" Source="$(var.MouseJiggler_TargetDir)Validation.dll" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>
